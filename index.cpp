@@ -118,6 +118,18 @@ void initialPage(int action = 0){
             account.check_balance(accNum);
             nextAction();
         }
+        //Deposit/withdraw money
+        case 3:
+        {
+            int accNum = 0;
+            std::cout<<"\nPlease enter your account number to check the balance: ";
+            std::cin>>accNum;
+            Bank account;
+            account.check_balance(accNum);
+            std::cout<<"\nSelect next action: \n\t1 = to deposit money to the account\n\t2 = to withdraw money from the account\n"
+
+            nextAction();
+        }
         default:
             return ;
     }
