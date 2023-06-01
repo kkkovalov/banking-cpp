@@ -139,6 +139,16 @@ class Bank{
             };
         };
 
+
+        //Public (void)functio to close existing account, requires (int)'account_number' parameter
+        void close_account(int account_number){
+            if(find_account(account_number)){
+                return ;
+            } else {
+                std::cout<<"\n -> Account: " + std::to_string(account_number) + " does not exists. Please verify the account number. \n\n";
+                initialPage(4);
+            };
+        }
         //Public (void)function to display account details, requires (int)'account_number' parameter
         void display(){
             return ;
@@ -217,6 +227,7 @@ class Bank{
 
 //Global (void)function to interact with banking console
 void initialPage(int action = 0){
+    Bank account;
     if(action == 0){
         std::cout<<"\nPlease select the service from the options below:";
         std::cout<<"\n\t1 = Open a new account\n\t2 = Check account balance\n\t3 = Deposit/Withdraw money\n\t4 = Close an account\n\t5 = Exit the bank\n";
@@ -238,7 +249,6 @@ void initialPage(int action = 0){
             int accNum = 0;
             std::cout<<"\nPlease enter your account number to check the balance: ";
             std::cin>>accNum;
-            Bank account;
             account.check_balance(accNum);
             nextAction();
             return ;
@@ -249,15 +259,16 @@ void initialPage(int action = 0){
             int accNum = 0;
             std::cout<<"\nPlease enter your account number to enter the banking system: ";
             std::cin>>accNum;
-            Bank account;
             account.deposit_withdraw(accNum);
             return ;
         }
+        //To close the account
         case 4:
         {
             int accNum = 0;
             std::cout<<"\nPlease enter your account number to enter the banking system: ";
             std::cin>>accNum;
+            account.close_account(accNum);
             return ;
         }
         default:
