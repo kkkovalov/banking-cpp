@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdio>
 
 void initialPage(int);
 int nextAction();
@@ -23,6 +24,7 @@ class Bank{
                 if(data_file.is_open()){
                     std::string line1,line2;
                     std::getline(data_file, line1);
+                    std::cout<<" -> "<<line1<<std::endl;
                     std::getline(data_file, line2);
                     std::cout<<" -> "<<line2<<std::endl;
                     data_file.close();
@@ -37,47 +39,62 @@ class Bank{
         
         //Public (int)function to deposit or withdraw money 
         void deposit_withdraw(int account_number){
-            if(find_account(account_number)){
-                std::ifstream data_file ("data/" + std::to_string(account_number) + ".txt");
-                if(data_file.is_open()){
-                    std::string line1,line2;
-                    std::getline(data_file, line1);
-                    std::getline(data_file, line2);
-                    std::cout<<" -> "<<line1<<std::endl;
-                    std::cout<<" -> "<<line2<<std::endl;
-                    std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit\n";
-                    int action;
-                    std::cin>>action;
-                    switch(action){
-                        case 1:
-                        {
-                            std::string s_balance;
-                            int i_balance = 0;
-                            for(int i = line2.find(':') + 2; i < line2.length(); i++){
-                                  s_balance += line2[i];
+            check_balance(account_number);
+            std::cin.ignore();
+            std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit\n";
+            int action = 0;
+            std::cin>>action;
+            switch(action){
+                case 1:
+                {
+                    std::ifstream data_file ("data/" + std::to_string(account_number) + ".txt");
+                    std::ofstream new_file ("data/temp.txt");
+                    if(data_file.is_open() && new_file.is_open()){
+                        std::string s_balance, line;
+                        int i_balance = 0, new_deposit = 0, i = 0;
+                        while(getline(data_file, line)){
+                            i++;
+                            if(i == 2) {
+                                
+                                std::cout<<"Enter the amount to deposit: ";
+                                std::cin>>new_deposit;
+                                i_balance += new_deposit;
+                                for(int i = line.find(':') + 2; i < line.length(); i++){
+                                    s_balance += line[i];
+                                }
+                                i_balance += stoi(s_balance);
+                                new_file << "Account balance: " + std::to_string(i_balance) + '\n';
+                            } else {
+                                new_file << line + '\n';
                             }
-                            i_balance = stoi(s_balance);
-                            std::cout<<"Enter the amount to deposit: ";
-                            int new_deposit = 0;
-                            std::cin>>new_deposit;
-                            i_balance += new_deposit;
-                            
-                            std::ofstream new_data ("data/" + std::to_string(account_number) + ".txt");
-                            new_data << "Account balance: " + std::to_string(i_balance);
-                            new_data.close();
-                            std::cout<<"\n -> New account balance: "<<i_balance<<'\n';
-                            nextAction();
                         }
-                        default:
-                            return ;
-                    };
+                        std::cout<<"\n -> New account balance is: " + std::to_string(i_balance) + "\n\n";
+                        new_file.close();
+                        data_file.close();
+                        std::string filename = "data/" + std::to_string(account_number) + ".txt";
+                        int s_length = filename.length();
+                        char *fname = new char[s_length + 1];
+                        strcpy(fname, filename.c_str());
+                        std::remove(fname);
+                        std::rename("data/temp.txt",fname);
+                        delete[] fname;
+                    } else {
+                        std::cout<<"Failed to open the file, please try again\n";
+                        initialPage(3);
+                    }
+                    nextAction();
+                    return ;
+                };
+                case 2:
+                {
+                    std::cout<<"case 2";
+                    return ;
                 }
-            } else {
-                std::cout<<"\nAccount `" + std::to_string(account_number) + "` does not exists. Please try again.\n";
-                initialPage(3);
+                default:
+                    std::cout<<"default";                            
+                    return ;
             };
-            return ;
-        }
+        };
 
         //Public (void)function to display account details, requires (int)'account_number' parameter
         void display(){
@@ -170,6 +187,7 @@ void initialPage(int action = 0){
             Bank new_account;
             new_account.open_account();
             nextAction();
+            return ;
         }
         //Checking account balace
         case 2:
@@ -180,6 +198,7 @@ void initialPage(int action = 0){
             Bank account;
             account.check_balance(accNum);
             nextAction();
+            return ;
         }
         //Deposit/withdraw money
         case 3:
@@ -189,6 +208,7 @@ void initialPage(int action = 0){
             std::cin>>accNum;
             Bank account;
             account.deposit_withdraw(accNum);
+            return ;
         }
         default:
             return ;
