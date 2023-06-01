@@ -87,6 +87,49 @@ class Bank{
                 };
                 case 2:
                 {
+                    std::ifstream data_file ("data/" + std::to_string(account_number) + ".txt");
+                    std::ofstream new_file ("data/temp.txt");
+                    if(data_file.is_open() && new_file.is_open()){
+                        std::string s_balance, line;
+                        int i_balance = 0, withdraw = 0, i = 0;
+                        while(getline(data_file, line)){
+                            i++;
+                            if(i == 2) {
+                                std::cout<<"Enter the amount to withdraw: ";
+                                std::cin>>withdraw;
+                                for(int i = line.find(':') + 2; i < line.length(); i++){
+                                    s_balance += line[i];
+                                }
+                                i_balance += stoi(s_balance);
+                                if(i_balance >= withdraw) {
+                                    i_balance -=withdraw;
+                                    new_file << "Account balance: " + std::to_string(i_balance) + '\n';
+                                } else {
+                                    std::cout<<"\n -> Not enough funds on the account! Deposit money first in order to withdraw\n\n";
+                                    nextAction();
+                                    return ;
+                                    new_file << "Account balance: " + std::to_string(i_balance) + '\n';
+                                }
+                            } else {
+                                new_file << line + '\n';
+                            }
+                        }
+                        std::cout<<"\n -> New account balance is: " + std::to_string(i_balance) + "\n\n";
+                        new_file.close();
+                        data_file.close();
+                        std::string filename = "data/" + std::to_string(account_number) + ".txt";
+                        int s_length = filename.length();
+                        char *fname = new char[s_length + 1];
+                        strcpy(fname, filename.c_str());
+                        std::remove(fname);
+                        std::rename("data/temp.txt",fname);
+                        delete[] fname;
+                    } else {
+                        std::cout<<"Failed to open the file, please try again\n";
+                        initialPage(3);
+                    }
+                    nextAction();
+                    return ;
                     std::cout<<"case 2";
                     return ;
                 }
