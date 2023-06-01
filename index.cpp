@@ -253,6 +253,13 @@ void initialPage(int action = 0){
             account.deposit_withdraw(accNum);
             return ;
         }
+        case 4:
+        {
+            int accNum = 0;
+            std::cout<<"\nPlease enter your account number to enter the banking system: ";
+            std::cin>>accNum;
+            return ;
+        }
         default:
             return ;
     }
