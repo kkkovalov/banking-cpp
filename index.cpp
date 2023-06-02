@@ -87,6 +87,7 @@ class Bank{
                 };
                 case 2:
                 {
+                    //Stream open data_file(existing) and create stream for a new_file(new)
                     std::ifstream data_file ("data/" + std::to_string(account_number) + ".txt");
                     std::ofstream new_file ("data/temp.txt");
                     if(data_file.is_open() && new_file.is_open()){
