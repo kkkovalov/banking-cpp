@@ -13,7 +13,7 @@ class Bank{
         //Public (void)function to open a new account, no parameter required
         void open_account(){
             generate_account();
-            std::cout<<" -> Account has been successfully opened, " + first_name +' '+ second_name + "\n -> Your account number is:\t";
+            std::cout<<" -> Account has been successfully opened, " + first_name +' '+ second_name + "\n -> Your account number is:\t\n";
             std::cout<<acc_num<<std::endl;
         };
 
@@ -139,7 +139,6 @@ class Bank{
             };
         };
 
-
         //Public (void)functio to close existing account, requires (int)'account_number' parameter
         void close_account(int account_number){
             if(find_account(account_number)){
@@ -155,14 +154,20 @@ class Bank{
                 initialPage(4);
             };
         }
+        
         //Public (void)function to display account details, requires (int)'account_number' parameter
         void display(){
             return ;
         };
     
+        int current_session(){
+            if(acc_num && find_account(acc_num)) return acc_num;
+            else return 0;
+        };
+
     private:
         //Bank account constants and variables
-        int acc_range = 99371, acc_num, acc_balance = 0;
+        int acc_range = 99371, acc_num = 0, acc_balance = 0;
         std::string first_name, second_name;
 
         //Private (int)function to generate random account number
@@ -173,21 +178,22 @@ class Bank{
         
         //Private (void)function to generate a new account, function is tied to (public void) 'open_account' function
         void generate_account(){
-            //generate random account number and check whether it exists already.
+
+            //Generate random account number and checks whether it exists already.
             do{
                 acc_num = generate_acc_number();
-            }while(!find_account(acc_num));
+            }while(find_account(acc_num));
 
             std::string name;
-            std::cout<<" - Opening a bank account:";
+            std::cout<<"\n -> Opening a bank account:\n";
             std::cin.ignore();
 
             //Enter a first name for the account created.
             while(true){
-                std::cout<<"Enter your first name: ";
+                std::cout<<" - Enter your first name: ";
                 std::getline(std::cin, name);
                 if(name.length() == 0) {
-                    std::cout<<"Invalid first name, please try again.\n\n";
+                    std::cout<<" -> Invalid first name, please try again.\n\n";
                     name.clear();
                 } else {
                     first_name = name;
@@ -197,7 +203,7 @@ class Bank{
 
             //Enter a last name for the account created.
             while(true){
-                std::cout<<"Enter your second name: ";
+                std::cout<<" - Enter your second name: ";
                 std::getline(std::cin, name);
                 if(name.length() == 0) {
                     std::cout<<"Invalid second name, please try again.\n\n";
@@ -233,53 +239,60 @@ class Bank{
 
 //Global (void)function to interact with banking console
 void initialPage(int action = 0){
+
     Bank account;
+    int accNum = 0;
+
+    //Default function to initialize system
     if(action == 0){
         std::cout<<"\nPlease select the service from the options below:";
-        std::cout<<"\n\t1 = Open a new account\n\t2 = Check account balance\n\t3 = Deposit/Withdraw money\n\t4 = Close an account\n\t5 = Exit the bank\n";
-        std::cout<<"Select option: ";
+        std::cout<<"\n\t1 = Open a new account\n\t2 = Check account balance\n\t3 = Deposit/Withdraw money\n\t4 = Close an account\n\t5 = Exit the bank\n\n";
+        std::cout<<" - Select option: ";
         std::cin>>action;
         initialPage(action);
+
     } else switch(action){
+
         //Opening new account
         case 1:
         {
-            Bank new_account;
-            new_account.open_account();
+            account.open_account();
             nextAction();
-            return ;
+            break ;
         }
+
         //Checking account balace
         case 2:
         {
-            int accNum = 0;
-            std::cout<<"\nPlease enter your account number to check the balance: ";
+            std::cout<<"\n - Please enter your account number to check the balance: ";
             std::cin>>accNum;
             account.check_balance(accNum);
             nextAction();
-            return ;
+            break ;
         }
+
         //Deposit/withdraw money
         case 3:
         {
-            int accNum = 0;
-            std::cout<<"\nPlease enter your account number to enter the banking system: ";
+            std::cout<<"\n - Please enter your account number to enter the banking system: ";
             std::cin>>accNum;
             account.deposit_withdraw(accNum);
-            return ;
+            break ;
         }
+
         //To close the account
         case 4:
         {
             int accNum = 0;
-            std::cout<<"\nPlease enter your account number to enter the banking system: ";
+            std::cout<<"\n - Please enter your account number to enter the banking system: ";
             std::cin>>accNum;
             account.close_account(accNum);
-            return ;
+            break ;
         }
         case 5:
         {
             exitBank();
+            break;
         }
         default:
             return ;
@@ -288,8 +301,10 @@ void initialPage(int action = 0){
 
 //Global (int)function to iterate between banking options
 int nextAction(){
+    Bank account;
     std::cout<<"Enter 1 - to continue using the bank or enter 2 - to exit.\n";
             int nextAct = 0;
+            std::cout<<" - Select option: ";
             std::cin>>nextAct;
             switch(nextAct){
                 case 1:
@@ -309,6 +324,6 @@ void exitBank(){
 
 //MAIN FUNCTION
 int main(){
-    std::cout<<"Welcome to the bank of Kovalov!\nPlease select the service from the options below:";
+    std::cout<<"\n\t\tWelcome to the bank of Kovalov!\n";
     initialPage();
 };
