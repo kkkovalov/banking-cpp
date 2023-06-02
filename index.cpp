@@ -277,6 +277,10 @@ void initialPage(int action = 0){
             account.close_account(accNum);
             return ;
         }
+        case 5:
+        {
+            exitBank();
+        }
         default:
             return ;
     }
