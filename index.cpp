@@ -143,6 +143,12 @@ class Bank{
         //Public (void)functio to close existing account, requires (int)'account_number' parameter
         void close_account(int account_number){
             if(find_account(account_number)){
+                std::string filename = "data/" + std::to_string(account_number) + ".txt";
+                char* fname = new char[filename.length() + 1];
+                std::strcpy(fname, filename.c_str());
+                std::remove(fname);
+                std::cout<<"\n -> Account: " + std::to_string(account_number) + " has been closed. Sorry to see you go.\n\n";
+                nextAction();
                 return ;
             } else {
                 std::cout<<"\n -> Account: " + std::to_string(account_number) + " does not exists. Please verify the account number. \n\n";
