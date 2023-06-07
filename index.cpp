@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cstdio>
 
+//Pre-initializing start functions
+
 void initialPage(int);
 int nextAction();
 void exitBank();
@@ -41,7 +43,7 @@ class Bank{
         void deposit_withdraw(int account_number){
             display(account_number, 3);
             std::cin.ignore();
-            std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit\n";
+            std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit"<<std::endl;
             int action = 0;
             std::cout<<"\n - Select option: ";
             std::cin>>action;
@@ -84,10 +86,11 @@ class Bank{
                         initialPage(3);
                     }
                     nextAction();
-                    return ;
+                    break;
                 };
                 case 2:
                 {
+                    //Stream open data_file(existing) and create stream for a new_file(new)
                     std::ifstream data_file ("data/" + std::to_string(account_number) + ".txt");
                     std::ofstream new_file ("data/temp.txt");
                     if(data_file.is_open() && new_file.is_open()){
@@ -130,11 +133,16 @@ class Bank{
                         initialPage(3);
                     }
                     nextAction();
-                    return ;
+                    break;
+                }
+                case 3:
+                {
+                    exitBank();
+                    break;
                 }
                 default:
-                    std::cout<<"default";                            
-                    return ;
+                    exitBank();
+                    break;
             };
         };
 
