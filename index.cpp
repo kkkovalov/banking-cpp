@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cstdio>
 
+//Pre-initializing start functions
+
 void initialPage(int);
 int nextAction();
 void exitBank();
@@ -41,7 +43,7 @@ class Bank{
         void deposit_withdraw(int account_number){
             check_balance(account_number);
             std::cin.ignore();
-            std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit\n";
+            std::cout<<"Select the service below: \n"<<"\t1 = to deposit\n\t2 = to withdraw\n\t3 = to exit"<<std::endl;
             int action = 0;
             std::cin>>action;
             switch(action){
@@ -83,7 +85,7 @@ class Bank{
                         initialPage(3);
                     }
                     nextAction();
-                    return ;
+                    break;
                 };
                 case 2:
                 {
@@ -130,13 +132,16 @@ class Bank{
                         initialPage(3);
                     }
                     nextAction();
-                    return ;
-                    std::cout<<"case 2";
-                    return ;
+                    break;
+                }
+                case 3:
+                {
+                    exitBank();
+                    break;
                 }
                 default:
-                    std::cout<<"default";                            
-                    return ;
+                    exitBank();
+                    break;
             };
         };
 
