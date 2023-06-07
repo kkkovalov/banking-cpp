@@ -1,2 +1,1 @@
-***Welcome to the Bank of Kovalov!
-
+# Welcome to the Bank of Kovalov!
