@@ -1,9 +1,10 @@
+        // Libraries
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <cstdio>
 
-//Pre-initializing start functions
+        //Declaration of basic functions to use inside the class
 
 void initialPage(int = 0,int = 0);
 int nextAction(int = 0);
@@ -12,7 +13,8 @@ void exitBank();
 class Bank{
     public:
 
-        //Public (int)function to open a new account, no parameter required - Returns (int)account_number varaiable created in the process.
+        //Public (int)function to open a new account, no parameter required. 
+        // -> returns (int)account_number varaiable created in the proces, default (int)account_number = 0.
         int openAccount(){
             generateAccount();
             std::cout<<" -> Account has been successfully opened, " + first_name +' '+ second_name + "\n -> Your account number is:\t";
@@ -197,24 +199,6 @@ class Bank{
         int getAccountNumber(){
 
             return acc_num;
-
-
-            // std::string account_number;
-            // int i = 0;
-            // while(i < 3){
-            //     std::cout<<"\n - Please enter your account number to check the balance: ";
-            //     std::getline(std::cin, account_number);
-            //     if(account_number.length() == 0 || account_number.length() > 7) {
-            //         std::cout<<"\n -> Invalid account number name, please try again.\n";
-            //         account_number.clear();
-            //     } else {
-            //         return stoi(account_number);
-            //     }
-            //     i++;
-            // };
-            // nextAction();
-            // return 0;
-
         };
 
     private:
@@ -232,7 +216,7 @@ class Bank{
         //Private (void)function to generate a new account, function is tied to (public void) 'openAccount' function
         void generateAccount(){
 
-            //Generate random account number and checks whether it exists already.
+            //Generates random account number and checks whether it exists already.
             do{
                 acc_num = generate_acc_number();
             }while(find_account(acc_num));
@@ -240,6 +224,7 @@ class Bank{
             std::string name;
             std::cout<<"\n -> Opening a bank account:"<<std::endl;
             std::cin.ignore();
+
             //Enter a first name for the account created.
             while(true){
                 std::cout<<" - Enter your first name: ";
@@ -266,10 +251,9 @@ class Bank{
                     break;
                 };
             };
-
             std::cout<<std::endl;
             
-            //Writing new account to the data.txt file
+            //Writing new account information into the "data/(account_number).txt" file. File is created by the ofstream function
             std::ofstream data_file ("data/"+std::to_string(acc_num) + ".txt");
             if(data_file.is_open()){
                 acc_balance = 0;
@@ -283,6 +267,7 @@ class Bank{
         };
 
         //Private (bool)function to check whether account exists
+        // -> returns (bool)true when account_number specified is in the data/ directory, else is false
         bool find_account(int account_number){
             std::ifstream data_file ("data/"+std::to_string(account_number)+".txt");
             if(data_file.is_open()) {
@@ -293,7 +278,7 @@ class Bank{
         }
 };
 
-//Global (void)function to interact with banking console
+//Global (void)function to interact with banking console, parameters (int)action = 0 and int(c_acc) = 0 are optional.
 void initialPage(int action, int c_acc){
 
     Bank account;
@@ -365,10 +350,11 @@ void initialPage(int action, int c_acc){
         }
         default:
             return ;
-    }
+    };
+    return ;
 };
 
-//Global (int)function to iterate between banking options
+//Global (int)function to iterate between banking options, parameter (int)c_acc = 0 is optional
 int nextAction(int c_acc){
     std::cout<<"\nEnter 1 - to continue using the bank or enter 2 - to exit.\n";
             int nextAct = 0;
@@ -382,6 +368,7 @@ int nextAction(int c_acc){
                 default:
                     return 0;
             };
+    return 0;
 };
 
 //Global (void)function to exit the banking system
@@ -397,6 +384,3 @@ int main(){
     std::cout<<"\n\t\tWelcome to the Bank of Kovalov!\n";
     initialPage();
 };
-
-
-//pass account between functions to avoid retyping account number
