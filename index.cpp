@@ -305,7 +305,7 @@ void initialPage(int action, int c_acc){
         {
             std::cout<<"\nPlease select the service from the options below:";
             std::cout<<"\n\t1 = Open a new account\n\t2 = Check account balance\n\t3 = Deposit/Withdraw money\n\t4 = Close an account\n\t5 = Exit the bank\n\n";
-            std::cout<<c_acc<<" - Select option: ";
+            std::cout<</*c_acc<<*/" - Select option: ";
             std::cin>>action;
             initialPage(action, c_acc);
             break;
@@ -372,7 +372,7 @@ void initialPage(int action, int c_acc){
 int nextAction(int c_acc){
     std::cout<<"\nEnter 1 - to continue using the bank or enter 2 - to exit.\n";
             int nextAct = 0;
-            std::cout<<c_acc<<" - Select option: ";
+            std::cout<</*c_acc<<*/" - Select option: ";
             std::cin>>nextAct;
             switch(nextAct){
                 case 1:
