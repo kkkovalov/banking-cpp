@@ -319,7 +319,7 @@ void initialPage(int action, int c_acc){
             break ;
         }
 
-        //Checking account balace
+        //Checking account balance
         case 2:
         {
             if(c_acc) {
