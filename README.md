@@ -12,4 +12,14 @@ To enjoy using the services of our bank, please download index.cpp file onto you
 
 > NOTE: Once the account has been created or account_number entered in the system, to use a different account **you will have to exit** the system first.
 
-`"\n\t1 = Open a new account\n\t2 = Check account balance\n\t3 = Deposit/Withdraw money\n\t4 = Close an account\n\t5 = Exit the bank\n\n"`
+
+`		Welcome to the Bank of Kovalov!`
+``
+`Please select the service from the options below:`
+`	1 = Open a new account`
+`	2 = Check account balance`
+`	3 = Deposit/Withdraw money`
+`	4 = Close an account`
+`	5 = Exit the bank`
+``
+`0 - Select option: `
