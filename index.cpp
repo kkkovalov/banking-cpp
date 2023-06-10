@@ -380,7 +380,6 @@ void exitBank(){
 
 //MAIN FUNCTION
 int main(){
-    Bank new_account;
     std::cout<<"\n\t\tWelcome to the Bank of Kovalov!\n";
     initialPage();
 };
