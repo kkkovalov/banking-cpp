@@ -28,19 +28,19 @@ Please select the service from the options below:
 ```
 
 - 1 = Open a new account:
-Generates a random account_number, requires the user to enter his first and last name. Names are verified to be non-empty *strings*.
+- Generates a random account_number, requires the user to enter his first and last name. Names are verified to be non-empty *strings*.
 
 - 2 = Check account balance:
-Displays current account number and balance when logged in, otherwise requests account number to check the balance. 
+- Displays current account number and balance when logged in, otherwise requests account number to check the balance. 
 
 - 3 = Deposit/Withdraw money:
-Opens up a window to select deposit or withdraw action and requests the sum. If logged in, checks for sufficient funds and displays the balance. Otherwise, returns an error.
+- Opens up a window to select deposit or withdraw action and requests the sum. If logged in, checks for sufficient funds and displays the balance. Otherwise, returns an error.
 
 - 4 = Close an account:
-Closes current or entered account number file in the bank.
+- Closes current or entered account number file in the bank.
 
 - 5 = Exit the bank:
-You can guesss.
+- You can guesss.
 
 > NOTE: All cases, if successful or not, result in `nextAction()` function execution.
 
@@ -50,4 +50,4 @@ You can guesss.
 
 No additional libraries or npm packages required, simple C++11 compiler will be more than enough. 
 
->>Please refer to your IDE documentation for compiling instructions and setup.
+>Please refer to your IDE documentation for compiling instructions and setup.
